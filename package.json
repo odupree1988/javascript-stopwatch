@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/odupree1988/javascript-stopwatch/issues"
   },
-  "homepage": "https://github.com/odupree1988/javascript-stopwatch#readme"
+  "homepage": "https://github.com/odupree1988/javascript-stopwatch#readme",
+  "dependencies": {
+    "bootstrap-icons": "^1.8.1"
+  }
 }
