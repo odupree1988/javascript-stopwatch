@@ -5,7 +5,7 @@ var miliseconds = 0;
 
 let display = () => {
   document.getElementById("start").addEventListener("click", () => {
-    t = setInterval(() => {
+    time = setInterval(() => {
       if (miliseconds === 99) {
         miliseconds = 0;
         seconds += 1;
@@ -13,14 +13,15 @@ let display = () => {
         miliseconds += 1;
       }
       timerEl.innerText = seconds + ":" + miliseconds;
-    }, 0);
+    }, 10);
   });
 
   document.getElementById("stop").addEventListener("click", () => {
-    clearInterval(t);
+    clearInterval(time);
   });
 
   document.getElementById("reset").addEventListener("click", () => {
+    clearInterval(time);
     seconds = 0;
     miliseconds = 0;
     timerEl.innerText = seconds + "0:0" + miliseconds;
