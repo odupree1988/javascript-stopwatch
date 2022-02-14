@@ -135,7 +135,6 @@ newSaveTime = () => {
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         ${seconds}:${miliseconds}
         `;
-    console.log(seconds);
   }, 10);
 };
 
