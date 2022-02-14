@@ -6,6 +6,7 @@ let savedTimeEl = document.getElementById("saved-time");
 let newTimeCheck = true;
 let seconds = 0;
 let miliseconds = 0;
+let savedNum = 0;
 
 let display = () => {
   startEl = document.createElement("button");
@@ -32,8 +33,11 @@ let display = () => {
     startEl.remove();
     changeIcon();
     resetContainerEl.innerHTML = "";
-    resetBtn();
     saveTime();
+    resetBtn();
+    if (newTimeCheck === false) {
+      newSaveTime();
+    }
   });
 };
 
@@ -51,6 +55,7 @@ let changeIcon = () => {
 
   document.getElementById("stop").addEventListener("click", () => {
     clearInterval(time);
+    clearInterval(newTime);
     pauseEl.remove();
     saveBtnEl.remove();
     display();
@@ -70,6 +75,8 @@ let resetBtn = () => {
 
   document.getElementById("reset").addEventListener("click", () => {
     clearInterval(time);
+    clearInterval(newTime);
+    savedNum = 0;
     seconds = 0;
     miliseconds = 0;
     timerEl.innerText = seconds + "0:0" + miliseconds;
@@ -83,8 +90,6 @@ let resetBtn = () => {
 };
 
 let saveTime = () => {
-  let savedNum = 0;
-
   saveBtnEl = document.createElement("button");
   saveBtnEl.className = "btn btn-secondary m-1";
   saveBtnEl.setAttribute("id", "save");
@@ -109,22 +114,27 @@ let saveTime = () => {
 
     savedTimeEl.append(pEl);
 
-    newTime = setInterval(() => {
-      if (newMiliseconds === 99) {
-        newMiliseconds = 0;
-        newSeconds += 1;
-      } else {
-        newMiliseconds += 1;
-      }
-      pEl.innerHTML = `
-      #${savedNum}
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-      ${newSeconds}:${newMiliseconds}
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      ${seconds}:${miliseconds}
-      `;
-    }, 10);
+    newSaveTime();
   });
+};
+
+newSaveTime = () => {
+  newTime = setInterval(() => {
+    if (newMiliseconds === 99) {
+      newMiliseconds = 0;
+      newSeconds += 1;
+    } else {
+      newMiliseconds += 1;
+    }
+    pEl.innerHTML = `
+        #${savedNum}
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+        ${newSeconds}:${newMiliseconds}
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        ${seconds}:${miliseconds}
+        `;
+    console.log(seconds);
+  }, 10);
 };
 
 display();
