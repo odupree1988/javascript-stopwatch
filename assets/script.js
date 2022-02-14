@@ -54,10 +54,12 @@ let changeIcon = () => {
   startStopContainerEl.append(pauseEl);
 
   document.getElementById("stop").addEventListener("click", () => {
-    clearInterval(time);
-    clearInterval(newTime);
     pauseEl.remove();
     saveBtnEl.remove();
+    clearInterval(time);
+    if (newTimeCheck !== true) {
+      clearInterval(newTime);
+    }
     display();
   });
 };
@@ -127,7 +129,7 @@ newSaveTime = () => {
       newMiliseconds += 1;
     }
     pEl.innerHTML = `
-        #${savedNum}
+        Lap #${savedNum}
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
         ${newSeconds}:${newMiliseconds}
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
