@@ -1,9 +1,11 @@
 let timerEl = document.getElementById("timer");
 let startStopContainerEl = document.getElementById("start-stop-container");
 let resetContainerEl = document.getElementById("reset-container");
+let savedTimeEl = document.getElementById("saved-time");
 
-var seconds = 0;
-var miliseconds = 0;
+let newTimeCheck = true;
+let seconds = 0;
+let miliseconds = 0;
 
 let display = () => {
   startEl = document.createElement("button");
@@ -29,51 +31,100 @@ let display = () => {
     }, 10);
     startEl.remove();
     changeIcon();
+    resetContainerEl.innerHTML = "";
     resetBtn();
+    saveTime();
   });
+};
 
-  let changeIcon = () => {
-    pauseEl = document.createElement("button");
-    pauseEl.className = "btn btn-success";
-    pauseEl.setAttribute("id", "stop");
+let changeIcon = () => {
+  pauseEl = document.createElement("button");
+  pauseEl.className = "btn btn-success";
+  pauseEl.setAttribute("id", "stop");
 
-    pauseIconEl = document.createElement("i");
-    pauseIconEl.className = "bi bi-pause-fill";
-    pauseIconEl.style.fontSize = "2rem";
+  pauseIconEl = document.createElement("i");
+  pauseIconEl.className = "bi bi-pause-fill";
+  pauseIconEl.style.fontSize = "2rem";
 
-    pauseEl.append(pauseIconEl);
-    startStopContainerEl.append(pauseEl);
+  pauseEl.append(pauseIconEl);
+  startStopContainerEl.append(pauseEl);
 
-    document.getElementById("stop").addEventListener("click", () => {
-      clearInterval(time);
-      pauseEl.remove();
-      resetEl.remove();
-      display();
-    });
-  };
+  document.getElementById("stop").addEventListener("click", () => {
+    clearInterval(time);
+    pauseEl.remove();
+    saveBtnEl.remove();
+    display();
+  });
+};
 
-  let resetBtn = () => {
-    resetEl = document.createElement("button");
-    resetEl.className = "btn btn-danger";
-    resetEl.setAttribute("id", "reset");
+let resetBtn = () => {
+  resetEl = document.createElement("button");
+  resetEl.className = "btn btn-secondary m-1";
+  resetEl.setAttribute("id", "reset");
 
-    resetIconEl = document.createElement("i");
-    resetIconEl.className = "bi bi-arrow-repeat";
-    resetIconEl.style.fontSize = "2rem";
+  resetIconEl = document.createElement("i");
+  resetIconEl.className = "bi bi-arrow-repeat";
+  resetIconEl.style.fontSize = "2rem";
+  resetEl.append(resetIconEl);
+  resetContainerEl.append(resetEl);
 
-    resetEl.append(resetIconEl);
-    resetContainerEl.append(resetEl);
+  document.getElementById("reset").addEventListener("click", () => {
+    clearInterval(time);
+    seconds = 0;
+    miliseconds = 0;
+    timerEl.innerText = seconds + "0:0" + miliseconds;
+    startEl.remove();
+    resetEl.remove();
+    pauseEl.remove();
+    saveBtnEl.remove();
+    savedTimeEl.innerHTML = "";
+    display();
+  });
+};
 
-    document.getElementById("reset").addEventListener("click", () => {
-      clearInterval(time);
-      seconds = 0;
-      miliseconds = 0;
-      timerEl.innerText = seconds + "0:0" + miliseconds;
-      resetEl.remove();
-      pauseEl.remove();
-      display();
-    });
-  };
+let saveTime = () => {
+  let savedNum = 0;
+
+  saveBtnEl = document.createElement("button");
+  saveBtnEl.className = "btn btn-secondary m-1";
+  saveBtnEl.setAttribute("id", "save");
+
+  saveBtnIconEl = document.createElement("i");
+  saveBtnIconEl.className = "bi bi-stopwatch";
+  saveBtnIconEl.style.fontSize = "2rem";
+
+  saveBtnEl.append(saveBtnIconEl);
+  resetContainerEl.append(saveBtnEl);
+
+  saveBtnEl.addEventListener("click", () => {
+    if (newTimeCheck === false) {
+      clearInterval(newTime);
+    }
+    newTimeCheck = false;
+
+    pEl = document.createElement("p");
+    newSeconds = 0;
+    newMiliseconds = 0;
+    savedNum++;
+
+    savedTimeEl.append(pEl);
+
+    newTime = setInterval(() => {
+      if (newMiliseconds === 99) {
+        newMiliseconds = 0;
+        newSeconds += 1;
+      } else {
+        newMiliseconds += 1;
+      }
+      pEl.innerHTML = `
+      #${savedNum}
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      ${newSeconds}:${newMiliseconds}
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      ${seconds}:${miliseconds}
+      `;
+    }, 10);
+  });
 };
 
 display();

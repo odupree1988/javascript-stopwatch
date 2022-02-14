@@ -18,10 +18,12 @@
     <title>JavaScript Stopwatch</title>
   </head>
   <body>
-    <div class="container bg-warning w-50 p-4 fs-1 rounded-pill">
-      <header>
-        <h1 class="text-center fst-italic">JavaScript Stopwatch</h1>
-      </header>
+    <header>
+      <h1 class="text-center fst-italic">JavaScript Stopwatch</h1>
+    </header>
+    <div
+      class="container bg-warning w-50 p-4 fs-1 rounded-pill border border-dark"
+    >
       <div class="row text-center m-4">
         <div class="col-xs-12">
           <div class="col-xs-12 p-4 fw-bold" id="timer">00:00</div>
@@ -32,6 +34,11 @@
         <div class="col-xs-12" id="reset-container">
           <!-- <button class="btn btn-danger" id="reset">Reset</button> -->
         </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12 text-center" id="saved-time"></div>
       </div>
     </div>
     <script
