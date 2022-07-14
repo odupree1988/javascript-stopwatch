@@ -7,6 +7,7 @@ let newTimeCheck = true;
 let seconds = 0;
 let miliseconds = 0;
 let savedNum = 0;
+let newTimeState = false;
 
 let display = () => {
   startEl = document.createElement("button");
@@ -77,7 +78,9 @@ let resetBtn = () => {
 
   document.getElementById("reset").addEventListener("click", () => {
     clearInterval(time);
-    clearInterval(newTime);
+    if (newTimeState) {
+      clearInterval(newTime);
+    }
     savedNum = 0;
     seconds = 0;
     miliseconds = 0;
@@ -121,6 +124,7 @@ let saveTime = () => {
 };
 
 newSaveTime = () => {
+  newTimeState = true
   newTime = setInterval(() => {
     if (newMiliseconds === 99) {
       newMiliseconds = 0;
